@@ -102,13 +102,30 @@ let fieldsForm = document.createElement ( "form" )
 fields.appendChild(fieldsForm)
 
 formData.forEach(function(item){
-  let formInput = document.createElement( "input")
-  let formLabel = document.createElement( "label")
-
-  formInput.setAttribute("id",item.id)
-  formInput.setAttribute("type",item.type)
-  formInput.setAttribute("placeholder",item.label)
-  console.log(formInput)
-  fieldsForm.appendChild(formInput)
-  console.log(fieldsForm)
+  let arr_general = ['tel','email','text']
+  if(arr_general.indexOf(item.type)>-1){
+    let formInput = document.createElement( "input")
+    formInput.setAttribute("id",item.id)
+    formInput.setAttribute("type",item.type)
+    formInput.setAttribute("placeholder",item.label)
+    formInput.setAttribute("name",item.id)
+    fieldsForm.appendChild(formInput)
+  } else if(item.type == 'textarea') {
+    let formTextArea = document.createElement( "textarea" )
+    formTextArea.setAttribute("id",item.id)
+    formTextArea.setAttribute("name",item.id)
+    formTextArea.setAttribute("rows","10")
+    formTextArea.setAttribute("placeholder",item.label)
+    fieldsForm.appendChild(formTextArea)
+  } else if(item.type ) {
+    let formSelect = document.createElement( "select" )
+    item.options.forEach(function(item){
+      let selectOption = document.createElement( "option")
+      selectOption.setAttribute("value",item.value)
+      let selectOptionText = document.createTextNode(item.label)
+      selectOption.appendChild(selectOptionText)
+      formSelect.appendChild(selectOption)
+    })
+    fieldsForm.appendChild(formSelect)
+  }
 });
