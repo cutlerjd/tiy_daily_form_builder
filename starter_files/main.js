@@ -119,6 +119,10 @@ formData.forEach(function(item){
     fieldsForm.appendChild(formTextArea)
   } else if(item.type ) {
     let formSelect = document.createElement( "select" )
+    let selectDefault = document.createElement( "option")
+    let selectDefaultText = document.createTextNode(item.label)
+    selectDefault.appendChild(selectDefaultText)
+    formSelect.appendChild(selectDefault)
     item.options.forEach(function(item){
       let selectOption = document.createElement( "option")
       selectOption.setAttribute("value",item.value)
